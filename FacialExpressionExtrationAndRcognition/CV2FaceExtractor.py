@@ -20,7 +20,7 @@ def detect_faces(imageName, imagePath, outputPath, classifierName):
     faces = face_cascade.detectMultiScale(
         gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30)
     )
-
+    extracted_faces_info=[]
     # Save the face regions as separate images
     for i, (x, y, w, h) in enumerate(faces):
         face_region = image[y : y + h, x : x + w]
@@ -28,7 +28,8 @@ def detect_faces(imageName, imagePath, outputPath, classifierName):
         outputPath = os.path.join(outputPath, face_image_name)
         print("Face Saved at ",face_image_name)
         cv2.imwrite(outputPath, face_region)
-
+        extracted_faces_info.append({"faceImageName":face_image_name,"faceImagePath":outputPath})
+    return extracted_faces_info
 
 # Example usage
 
